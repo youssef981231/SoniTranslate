@@ -471,7 +471,7 @@ class SoniTranslate(SoniTrCache):
             media_file = ""
 
         if not origin_language:
-            origin_language = "Automatic detection"
+            origin_language = "English (en)"
 
         if origin_language in UNIDIRECTIONAL_L_LIST and not subtitle_file:
             raise ValueError(
