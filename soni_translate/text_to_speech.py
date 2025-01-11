@@ -1563,11 +1563,11 @@ if __name__ == "__main__":
 
     audio_segmentation_to_voice(
         result_diarize,
-        TRANSLATE_AUDIO_TO="en",
-        max_accelerate_audio=2.1,
+        TRANSLATE_AUDIO_TO="ar",
+        max_accelerate_audio=1.5,
         is_gui=True,
-        tts_voice00="en-facebook-mms VITS",
-        tts_voice01="en-CA-ClaraNeural-Female",
+        tts_voice00="ar-MA-JamalNeural-Male",
+        tts_voice01="ar-MA-JamalNeural-Male",
         tts_voice02="en-GB-ThomasNeural-Male",
         tts_voice03="en-GB-SoniaNeural-Female",
         tts_voice04="en-NZ-MitchellNeural-Male",
