@@ -1498,13 +1498,13 @@ def create_gui(theme, logs_in_gui=False):
 
                     SOURCE_LANGUAGE = gr.Dropdown(
                         LANGUAGES_LIST,
-                        value=LANGUAGES_LIST[0],
+                        value="English (en)",
                         label=lg_conf["sl_label"],
                         info=lg_conf["sl_info"],
                     )
                     TRANSLATE_AUDIO_TO = gr.Dropdown(
                         LANGUAGES_LIST[1:],
-                        value="English (en)",
+                        value="Arabic (ar)",
                         label=lg_conf["tat_label"],
                         info=lg_conf["tat_info"],
                     )
@@ -1524,7 +1524,7 @@ def create_gui(theme, logs_in_gui=False):
                     max_speakers = gr.Slider(
                         1,
                         MAX_TTS,
-                        value=2,
+                        value=1,
                         step=1,
                         label=lg_conf["max_sk"],
                     )
@@ -1539,7 +1539,7 @@ def create_gui(theme, logs_in_gui=False):
 
                     tts_voice00 = gr.Dropdown(
                         SoniTr.tts_info.tts_list(),
-                        value="en-US-EmmaMultilingualNeural-Female",
+                        value="ar-MA-JamalNeural-Male",
                         label=lg_conf["sk1"],
                         visible=True,
                         interactive=True,
@@ -1548,7 +1548,7 @@ def create_gui(theme, logs_in_gui=False):
                         SoniTr.tts_info.tts_list(),
                         value="en-US-AndrewMultilingualNeural-Male",
                         label=lg_conf["sk2"],
-                        visible=True,
+                        visible=False,
                         interactive=True,
                     )
                     tts_voice02 = gr.Dropdown(
@@ -1740,7 +1740,7 @@ def create_gui(theme, logs_in_gui=False):
                         ):
                             audio_accelerate = gr.Slider(
                                 label=lg_conf["acc_max_label"],
-                                value=1.9,
+                                value=1.5,
                                 step=0.1,
                                 minimum=1.0,
                                 maximum=2.5,
@@ -1774,7 +1774,7 @@ def create_gui(theme, logs_in_gui=False):
                             volume_original_mix = gr.Slider(
                                 label=lg_conf["vol_ori"],
                                 info="for Adjusting volumes and mixing audio",
-                                value=0.25,
+                                value=0,
                                 step=0.05,
                                 minimum=0.0,
                                 maximum=2.50,
@@ -1869,7 +1869,7 @@ def create_gui(theme, logs_in_gui=False):
                             batch_size = gr.Slider(
                                 minimum=1,
                                 maximum=32,
-                                value=8,
+                                value=20,
                                 label=lg_conf["batchz_label"],
                                 info=lg_conf["batchz_info"],
                                 step=1,
