@@ -380,16 +380,16 @@ class SoniTranslate(SoniTrCache):
         media_file=None,
         link_media="",
         directory_input="",
-        YOUR_HF_TOKEN="",
+        YOUR_HF_TOKEN="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",
         preview=False,
         transcriber_model="large-v3",
-        batch_size=4,
+        batch_size=20,
         compute_type="auto",
-        origin_language="Automatic detection",
-        target_language="English (en)",
+        origin_language="English (en)",
+        target_language="Arabic (ar)",
         min_speakers=1,
         max_speakers=1,
-        tts_voice00="en-US-EmmaMultilingualNeural-Female",
+        tts_voice00="ar-MA-JamalNeural-Male",
         tts_voice01="en-US-AndrewMultilingualNeural-Male",
         tts_voice02="en-US-AvaMultilingualNeural-Female",
         tts_voice03="en-US-BrianMultilingualNeural-Male",
@@ -403,32 +403,32 @@ class SoniTranslate(SoniTrCache):
         tts_voice11="en-US-AndrewMultilingualNeural-Male",
         video_output_name="",
         mix_method_audio="Adjusting volumes and mixing audio",
-        max_accelerate_audio=2.1,
+        max_accelerate_audio=1.5,
         acceleration_rate_regulation=False,
-        volume_original_audio=0.25,
+        volume_original_audio=0,
         volume_translated_audio=1.80,
         output_format_subtitle="srt",
         get_translated_text=False,
         get_video_from_text_json=False,
         text_json="{}",
-        avoid_overlap=False,
+        avoid_overlap=True,
         vocal_refinement=False,
         literalize_numbers=True,
         segment_duration_limit=15,
         diarization_model="pyannote_2.1",
         translate_process="google_translator_batch",
         subtitle_file=None,
-        output_type="video (mp4)",
+        output_type="audio (mp3)",
         voiceless_track=False,
         voice_imitation=False,
         voice_imitation_max_segments=3,
         voice_imitation_vocals_dereverb=False,
-        voice_imitation_remove_previous=True,
+        voice_imitation_remove_previous=False,
         voice_imitation_method="freevc",
-        dereverb_automatic_xtts=True,
+        dereverb_automatic_xtts=False,
         text_segmentation_scale="sentence",
         divide_text_segments_by="",
-        soft_subtitles_to_video=True,
+        soft_subtitles_to_video=False,
         burn_subtitles_to_video=False,
         enable_cache=True,
         custom_voices=False,
@@ -437,7 +437,7 @@ class SoniTranslate(SoniTrCache):
         progress=gr.Progress(),
     ):
         if not YOUR_HF_TOKEN:
-            YOUR_HF_TOKEN = os.getenv("YOUR_HF_TOKEN")
+            YOUR_HF_TOKEN = os.getenv("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")
             if diarization_model == "disable" or max_speakers == 1:
                 if YOUR_HF_TOKEN is None:
                     YOUR_HF_TOKEN = ""
@@ -1434,7 +1434,7 @@ class SoniTranslate(SoniTrCache):
         return output
 
 
-title = "<center><strong><font size='7'>📽️ SoniTranslate 🈷️</font></strong></center>"
+title = "<center><strong><font size='7'>📽️ Joe Translate 🈷️</font></strong></center>"
 
 
 def create_gui(theme, logs_in_gui=False):
@@ -2856,7 +2856,7 @@ if __name__ == "__main__":
     app.queue()
 
     app.launch(
-        max_threads=1,
+        max_threads=2,
         share=args.public_url,
         show_error=True,
         quiet=False,
