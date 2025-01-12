@@ -380,16 +380,16 @@ class SoniTranslate(SoniTrCache):
         media_file=None,
         link_media="",
         directory_input="",
-        YOUR_HF_TOKEN="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",
+        YOUR_HF_TOKEN="",
         preview=False,
         transcriber_model="large-v3",
-        batch_size=20,
+        batch_size=4,
         compute_type="auto",
-        origin_language="English (en)",
-        target_language="Arabic (ar)",
+        origin_language="Automatic detection",
+        target_language="English (en)",
         min_speakers=1,
         max_speakers=1,
-        tts_voice00="ar-MA-JamalNeural-Male",
+        tts_voice00="en-US-EmmaMultilingualNeural-Female",
         tts_voice01="en-US-AndrewMultilingualNeural-Male",
         tts_voice02="en-US-AvaMultilingualNeural-Female",
         tts_voice03="en-US-BrianMultilingualNeural-Male",
@@ -403,32 +403,32 @@ class SoniTranslate(SoniTrCache):
         tts_voice11="en-US-AndrewMultilingualNeural-Male",
         video_output_name="",
         mix_method_audio="Adjusting volumes and mixing audio",
-        max_accelerate_audio=1.5,
+        max_accelerate_audio=2.1,
         acceleration_rate_regulation=False,
-        volume_original_audio=0,
+        volume_original_audio=0.25,
         volume_translated_audio=1.80,
         output_format_subtitle="srt",
         get_translated_text=False,
         get_video_from_text_json=False,
         text_json="{}",
-        avoid_overlap=True,
+        avoid_overlap=False,
         vocal_refinement=False,
         literalize_numbers=True,
         segment_duration_limit=15,
         diarization_model="pyannote_2.1",
         translate_process="google_translator_batch",
         subtitle_file=None,
-        output_type="audio (mp3)",
+        output_type="video (mp4)",
         voiceless_track=False,
         voice_imitation=False,
         voice_imitation_max_segments=3,
         voice_imitation_vocals_dereverb=False,
-        voice_imitation_remove_previous=False,
+        voice_imitation_remove_previous=True,
         voice_imitation_method="freevc",
-        dereverb_automatic_xtts=False,
+        dereverb_automatic_xtts=True,
         text_segmentation_scale="sentence",
         divide_text_segments_by="",
-        soft_subtitles_to_video=False,
+        soft_subtitles_to_video=True,
         burn_subtitles_to_video=False,
         enable_cache=True,
         custom_voices=False,
@@ -437,7 +437,7 @@ class SoniTranslate(SoniTrCache):
         progress=gr.Progress(),
     ):
         if not YOUR_HF_TOKEN:
-            YOUR_HF_TOKEN = os.getenv("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")
+            YOUR_HF_TOKEN = os.getenv("YOUR_HF_TOKEN")
             if diarization_model == "disable" or max_speakers == 1:
                 if YOUR_HF_TOKEN is None:
                     YOUR_HF_TOKEN = ""
@@ -471,7 +471,7 @@ class SoniTranslate(SoniTrCache):
             media_file = ""
 
         if not origin_language:
-            origin_language = "English (en)"
+            origin_language = "Automatic detection"
 
         if origin_language in UNIDIRECTIONAL_L_LIST and not subtitle_file:
             raise ValueError(
@@ -1434,7 +1434,7 @@ class SoniTranslate(SoniTrCache):
         return output
 
 
-title = "<center><strong><font size='7'>📽️ Joe Translate 🈷️</font></strong></center>"
+title = "<center><strong><font size='7'>📽️ SoniTranslate 🈷️</font></strong></center>"
 
 
 def create_gui(theme, logs_in_gui=False):
@@ -1498,7 +1498,7 @@ def create_gui(theme, logs_in_gui=False):
 
                     SOURCE_LANGUAGE = gr.Dropdown(
                         LANGUAGES_LIST,
-                        value="English (en)",
+                        value=LANGUAGES_LIST[0],
                         label=lg_conf["sl_label"],
                         info=lg_conf["sl_info"],
                     )
@@ -1524,7 +1524,7 @@ def create_gui(theme, logs_in_gui=False):
                     max_speakers = gr.Slider(
                         1,
                         MAX_TTS,
-                        value=1,
+                        value=2,
                         step=1,
                         label=lg_conf["max_sk"],
                     )
@@ -1754,7 +1754,7 @@ def create_gui(theme, logs_in_gui=False):
                                 info=lg_conf["acc_rate_info"],
                             )
                             avoid_overlap_gui = gr.Checkbox(
-                                False,
+                                True,
                                 label=lg_conf["or_label"],
                                 info=lg_conf["or_info"],
                             )
@@ -2023,11 +2023,12 @@ def create_gui(theme, logs_in_gui=False):
                                 whisper_model_default,
                                 4,
                                 com_t_default,
+                                "Spanish (es)",
                                 "English (en)",
-                                "Arabic (ar)",
                                 1,
-                                1,
-                                "ar-MA-JamalNeural-Male",
+                                2,
+                                "en-CA-ClaraNeural-Female",
+                                "en-AU-WilliamNeural-Male",
                             ],
                         ],  # no update
                         fn=SoniTr.batch_multilingual_media_conversion,
@@ -2855,7 +2856,7 @@ if __name__ == "__main__":
     app.queue()
 
     app.launch(
-        max_threads=2,
+        max_threads=4,
         share=args.public_url,
         show_error=True,
         quiet=False,
